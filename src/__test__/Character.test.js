@@ -1,4 +1,10 @@
-import { Bowman, Swordsman, Magician, Undead, Zombie, Daemon } from '../index';
+import Bowman from '../js/class/Bowman';
+import Swordsman from '../js/class/Swordsman';
+import Magician from '../js/class/Magician';
+import Undead from '../js/class/Undead';
+import Zombie from '../js/class/Zombie';
+import Daemon from '../js/class/Daemon';
+
 
 describe('Character class', () => {
     const testData = [
@@ -11,13 +17,20 @@ describe('Character class', () => {
     ];
 
     test.each(testData)('%s should have correct properties', (name, CharacterClass, expectedHealth, expectedLevel, expectedAttack, expectedDefence) => {
+        // Создаем эталонный объект с ожидаемыми свойствами
+        const expectedCharacter = {
+            name: name,
+            type: CharacterClass.name,
+            health: expectedHealth,
+            level: expectedLevel,
+            attack: expectedAttack,
+            defence: expectedDefence
+        };
+
+        // Создаем реальный объект при помощи класса
         let character = new CharacterClass(name);
 
-        expect(character.name).toBe(name);
-        expect(character.type).toBe(CharacterClass.name);
-        expect(character.health).toBe(expectedHealth);
-        expect(character.level).toBe(expectedLevel);
-        expect(character.attack).toBe(expectedAttack);
-        expect(character.defence).toBe(expectedDefence);
+        // Сравниваем эталонный объект с реальным объектом
+        expect(character).toEqual(expectedCharacter);
     });
 });
